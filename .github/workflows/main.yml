@@ -2,8 +2,8 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-    - 'V*' # Push events to matching v*, i.e. v1.0, v20.15.10
-  
+      - 'V*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
 name: Release Multi Platform
 
 jobs:
@@ -29,12 +29,13 @@ jobs:
         run: |
           fbs freeze
           fbs installer
+          ls target
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/fbs_tutorial_app.dmg
-          asset_name: fbs_tutorial_app.dmg
+          file: target/MyApp.dmg #change to real name
+          asset_name: MyApp.dmg #change to real name
           tag: ${{ github.ref }}
           overwrite: true
 
@@ -60,11 +61,12 @@ jobs:
         run: |
           fbs freeze
           fbs installer
+          dir target
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/fbs_tutorial_appSetup.exe
-          asset_name: fbs_tutorial_appSetup.exe
+          file: target/MyAppSetup.exe #change to real name {}Setup.exe
+          asset_name: MyAppSetup.exe #change to real name {}Setup.exe
           tag: ${{ github.ref }}
           overwrite: true
